@@ -1,5 +1,9 @@
 <template>
   <div class="blocPrincipal">
+    <div class="info">
+          Veuillez vous connecter si vous avez un compte Groupomania.<br>
+          Sinon veuillez créer un compte.
+    </div>
     <div v-if="messageSuccess" class="formSignup">
       <h1>Connexion réussie !</h1>
       <p><router-link to="/">Accueil</router-link></p>
@@ -21,6 +25,14 @@
           <button type="submit">LOGIN</button>
         </div>
       </form>
+    </div>
+    <div class="blocFooter">
+        <div class="footerImage">
+          <img src="../../src/assets/Groupomania_Logo/icon-left-font.png" alt="logo">
+        </div>
+        <div class="textFooter">
+          Copyright 2021
+        </div>
     </div>
   </div> 
 </template>
@@ -106,9 +118,8 @@ label, input {
 }
 
 p {
-  display: flex;
-  justify-content: center;
-  color: red;
+    display: flex;
+    justify-content: center;
 }
 
 </style>

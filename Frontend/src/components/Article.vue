@@ -1,17 +1,14 @@
 <template>
-    <div class="blocPrincipal">
-        <div v-if="loading" class="article">
+    <div class="blocPrincipal1">
+        <div v-if="loading" class="article1">
             Loading...
         </div>
-        <div v-if="error" class="article">
+        <div v-if="error" class="article1">
             Erreur : {{ error }}
         </div>
-        <div v-if="!loading && !error" class="article">
+        <div v-if="!loading && !error" class="article1">
             <div class="titre1">
                 {{ article.titre }}
-            </div>
-            <div v-if="canRemoveArticle()">
-                <button type="button" v-on:click="removeArticle()">Supprimer</button>
             </div>
             <div class="image1">
                  <img :src="getArticleImageUrl(article.image_url)" alt="">
@@ -19,27 +16,38 @@
             <div class="texte1">
                 {{ article.contenu }}
             </div>
+            <div class="removeArticle" v-if="canRemoveArticle()">
+                <button type="button" v-on:click="removeArticle()">Supprimer l'article </button>
+            </div>
         </div>
-        <div v-if="commentaires.length" class="article">
+        <div v-if="commentaires.length" class="article1">
             <div v-for="commentaire in commentaires" :key="commentaire.id" class="blocCommentaire">
-                <div v-if="canRemoveCommentaire(commentaire)">
-                    <button type="button" v-on:click="removeCommentaire(commentaire)">Supprimer</button>
-                </div>
                 <div class="commentaire">
                     {{ commentaire.user.email.split("@")[0] }}  : {{ commentaire.contenu }}
                 </div>
+                <div class="removeCommentaire" v-if="canRemoveCommentaire(commentaire)">
+                    <button type="button" v-on:click="removeCommentaire(commentaire)">Supprimer le commentaire </button>
+                </div>
             </div>
         </div>
-        <div class="article">
+        <div class="article1">
             <form v-on:submit.prevent="submitForm">
                 <div class="texte">
-                    <label for="texte">Commentaire</label>
+                    <label for="texte">Commentaires</label>
                     <textarea v-model="newComment" placeholder="Commentaire" rows=15 cols=40 required></textarea>
                 </div>
                 <div class="bouton">
                     <button type="submit">Créer mon Commentaire</button>
                 </div>
             </form>
+        </div>
+        <div class="blocFooter">
+            <div class="footerImage">
+                <img src="../../src/assets/Groupomania_Logo/icon-left-font.png" alt="logo">
+            </div>
+            <div class="textFooter">
+                Copyright 2021
+            </div>
         </div>
     </div>
 </template>
@@ -107,11 +115,17 @@ export default {
         return commentaire.userId === userId;
     },
     async removeArticle() {
+        if(!confirm("Voulez-vous vraiment supprimer l'article ?")){
+            return;
+        }
         await articlesApi.deleteArticleById(this.article.id);
 
         router.push('/');
     },
     async removeCommentaire(commentaire) {
+        if(!confirm("Voulez-vous vraiment supprimer votre commentaire ?")){
+            return;
+        }
         await commentairesApi.deleteCommentaire(this.article.id, commentaire.id);
 
         this.commentaires = this.commentaires.filter(({ id }) => id !== commentaire.id);
@@ -151,56 +165,70 @@ export default {
 
 a {
     text-decoration: none;
+    color: black;
 }
 
-.blocPrincipal {
+.blocPrincipal1 {
     margin-top: 15px;
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     height: auto;
-    border: 5px solid brown;
 }
 
-.article {
-    border: 6px green solid;
+.article1 {
+    border-bottom: 1px solid darkgrey;
     width: 80%;
-    margin-top: 25px;
+    /*margin-top: 25px;*/
     display: flex;
     flex-direction: column;
-
 }
 
 .titre1 {
+    font-weight: bolder;
     height: auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
     background-color: white;
-    border-bottom: 3px solid grey;
-}
-
-.image1 {
-    height: 200px;
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
 }
 
 .texte1 {
-    border: 3px solid black;
     height: auto;
     justify-content: flex-start;
     align-items: center;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.texte {
+    margin-top: 5px;
+}
+
+.removeArticle, .removeCommentaire {
+    margin-bottom: 10px;
 }
 
 .blocCommentaire {
     margin-top: 10px;
     margin-bottom: 10px;
-    border: 1px solid black;
     height: auto;
 }
 
 .commentaire {
     height: 50px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bouton {
+    display: flex;
+    justify-content: center;
 }
 
 </style>

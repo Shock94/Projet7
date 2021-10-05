@@ -1,5 +1,9 @@
 <template>
   <div class="blocPrincipal">
+    <div class="info">
+      Veuillez vous inscrire si vous n'avez pas encore crée de compte chez Groupomania. <br>
+      Sinon veuillez vous connecter.
+    </div>
     <div v-if="messageSuccess" class="formSignup">
       <h1>Bienvenu {{ form.email }} !</h1>
       <p>{{ messageSuccess }}</p>
@@ -21,6 +25,14 @@
           <button type="submit">SIGN UP</button>
         </div>
       </form>
+    </div>
+    <div class="blocFooter">
+        <div class="footerImage">
+          <img src="../../src/assets/Groupomania_Logo/icon-left-font.png" alt="logo">
+        </div>
+        <div class="textFooter">
+          Copyright 2021
+        </div>
     </div>
   </div> 
 </template>
@@ -68,6 +80,7 @@ export default {
 .blocPrincipal {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     height: 300px;
     width: 100%;
 }
@@ -78,6 +91,14 @@ export default {
     align-items: center;
     flex-direction: column;
     width: 70%;
+}
+
+.info {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 1.5em;
 }
 
 form {
@@ -102,9 +123,15 @@ label, input {
 
 p {
   font-size: x-large;
-  color: red;
   display: flex;
   justify-content: center;
+}
+
+button {
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  color: brown;
 }
 
 </style>

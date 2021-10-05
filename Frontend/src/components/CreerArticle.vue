@@ -30,6 +30,14 @@
                 </form>
             </div>
         </div>
+        <div class="blocFooter">
+            <div class="footerImage">
+                <img src="../../src/assets/Groupomania_Logo/icon-left-font.png" alt="logo">
+            </div>
+            <div class="textFooter">
+                Copyright 2021
+            </div>
+        </div>    
     </div>
 </template>
 
@@ -144,6 +152,9 @@ label, input {
 }
 
 .bouton button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding-top: 15px;
     padding-bottom: 15px;
     padding-right: 15px;

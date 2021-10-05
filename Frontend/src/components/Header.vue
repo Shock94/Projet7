@@ -6,6 +6,7 @@
     <div class="lienMenu">
       <ul>
         <li v-if="isAuthenticated"><router-link to="/articles/creer">Créer un article</router-link></li>
+        <li v-if="isAuthenticated"><router-link to="/">Accueil</router-link></li>
         <li v-if="!isAuthenticated"><router-link to="/inscription">Inscription</router-link></li>
         <li v-if="!isAuthenticated"><router-link to="/connexion">Connexion</router-link></li>
       </ul>
@@ -61,6 +62,8 @@ a {
 }
 
 .lienMenu a {
+    display: flex;
+    align-items: center;
     color: black;
     margin-right: 15%;
 }
@@ -75,4 +78,9 @@ li {
     margin-right: 15%;
 }
 
+@media all and (max-width: 1024px) {  /*Petit ecran*/
+  .blocHeader {
+    place-content: flex-start;
+  }
+}
 </style>
